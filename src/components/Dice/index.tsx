@@ -5,7 +5,8 @@ const Dice = ({ text }: { text: string }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current !== null && canvasRef.current as any;
+
     const ctx = canvas.getContext("2d");
 
     function drawDice() {
@@ -25,7 +26,7 @@ const Dice = ({ text }: { text: string }) => {
       drawText(ctx, x + size / 2, y + size / 2, text);
     }
 
-    function drawFace(ctx, x, y, size, face) {
+    function drawFace(ctx : any, x : number, y : number, size : number, face : string) {
       ctx.beginPath();
       switch (face) {
         case "front":
@@ -63,17 +64,19 @@ const Dice = ({ text }: { text: string }) => {
       }
     }
 
-    function drawDot(ctx, x, y) {
+    /* 
+     function drawDot(ctx : any, x : number, y: number) {
       ctx.beginPath();
       ctx.arc(x, y, 5, 0, Math.PI * 2);
       ctx.fillStyle = "black";
       ctx.fill();
     }
-
+    */
+   
     drawDice();
   }, [text]);
 
-  function drawText(ctx, x, y, text) {
+  function drawText(ctx : any, x : number, y : number, text : string) {
     ctx.font = "20px Arial";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
